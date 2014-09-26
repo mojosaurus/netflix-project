@@ -1,0 +1,6 @@
+elasticsearch
+flask-restful
+tornado
+flask
+numpy
+scipy

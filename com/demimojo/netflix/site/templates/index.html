@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %} Netflix experiment {% endblock %}
+{% block body %}
+
+
+<div id="remote">
+<input class="typeahead" type="text" placeholder="Oscar winners for Best Picture">
+</div>
+ <script>
+// constructs the suggestion engine
+var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
+var bestPictures = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: '../v1.0/movies/suggest/%QUERY',
+    filter: function(list) {
+            console.log(list)
+            return $.map(list, function(name) { return { value: name}; });
+        }
+  }
+});
+
+bestPictures.initialize();
+
+$('#remote .typeahead').typeahead(null, {
+  name: 'best-pictures',
+  displayKey: 'value',
+  source: bestPictures.ttAdapter()
+});
+
+</script>
+{% endblock %}
