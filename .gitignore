@@ -8,6 +8,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+venv/
 build/
 develop-eggs/
 dist/
@@ -55,3 +56,6 @@ target/
 
 # raw data for netflix
 raw-data
+
+# PyCharm
+.idea/
